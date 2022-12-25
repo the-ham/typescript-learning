@@ -10,3 +10,5 @@
 7. Using the "type" keyword to make custom types
 8. Using the "readonly" keyword and using "?" to make params optional
 9. Making advanced types from other types/custom types
+10. How to type arrays
+11. Using union typing "|" to allow multiple types

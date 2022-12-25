@@ -122,7 +122,49 @@ type cardCVV = {
 
 type cardDetails = cardNumber & cardCVV
 
+/////////////////////////////////////////////////////////////////////
+// Typing arrays and higher dimensional arrays
+const arrayOfStrings: string[] = []; // e.g. ["bob", "jane", "sam"]
+const arrayOfArrayOfStrings: string[][] = []; // e.g. [["bob"],["jane"],["sam"]]
+
+type newUser = {
+  name: string;
+  isActive: boolean;
+}
+
+const allUsers: newUser[] = []; // An array of newUser objects
+allUsers.push({name: "spiderman", isActive: true})
 
 /////////////////////////////////////////////////////////////////////
+// Union types (basically allowing more than 1 type)
+let score: number | string = 33; // score can either be a number or a string
+
+// also works for objects that allow multiple types
+type NormalUser = {
+  username: string;
+  password: string;
+}
+
+type AdminUser = {
+  username: string;
+  password: string;
+  adminlevel: number;
+}
+
+let john: NormalUser | AdminUser = {username: "John", password: "12345"}
+john = {username: "John", password: "12345", adminlevel: 1} // john can receive an adminlevel even though initialized as a NormalUser
+
+// Arrays that can receive multiple typed elements
+const data: (string | number)[] = [];
+data.push("abc", 123)
+
+// Literal typing
+let seatType: "aisle" | "middle" | "window";
+// seatType = "crew" // throws error as expected
+seatType = "aisle"
+
+/////////////////////////////////////////////////////////////////////
+// https://www.youtube.com/watch?v=30LWjhZzg50&ab_channel=freeCodeCamp.org
+// CURRENT TIMESTAMP: 2:06:34
 
 export {}
