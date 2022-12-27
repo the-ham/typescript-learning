@@ -12,3 +12,9 @@
 9. Making advanced types from other types/custom types
 10. How to type arrays
 11. Using union typing "|" to allow multiple types
+12. Interfaces
+  - having properties whose type is a function (with param and return types also specified)
+  - using Interfaces to define the shape of a function
+  - reopening interfaces
+  - inheritance of interfaces
+  - Other interface features include Class Types, Indexable Types, and Hybrid Types

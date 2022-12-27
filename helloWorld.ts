@@ -164,6 +164,94 @@ let seatType: "aisle" | "middle" | "window";
 seatType = "aisle"
 
 /////////////////////////////////////////////////////////////////////
+// Tuples
+
+type tuplee = [number, string]
+
+let tupp:tuplee = [1, "a"]
+
+// tupp.push("sad"); // Tuple types do not prevent array methods like .pop, .push etc.
+
+/////////////////////////////////////////////////////////////////////
+// Enums
+// Enums are for creating a closed set of choices for variables, so that not passing one of the allowed values will throw an error
+
+enum SeatChoice {
+  AISLE, // default enum index starts at 0. Can also manually set starting index to any number (AISLE = 1). Can also make "string enums" by setting each enum to a string (AISLE = "aisle" etc.)
+  MIDDLE,
+  WINDOW,
+}
+
+const mySeat = SeatChoice.AISLE // instead of mySeat = 1 or mySeat = 57 etc. which is less safe
+
+// Another way to declare Enums are by prefixing the declaration with "const"
+const enum DessertRating {
+  BAD,
+  OK,
+  GOOD,
+}
+
+const myRating = DessertRating.GOOD // works as well
+
+/*
+The main difference between using enum vs const enum is that "enum" alone will generate an object via
+an IIFE, which produces a bunch of JS code but preserves the enum's existence in compile time.
+
+For "const enum", something like "mySeat = SeatChoice.AISLE" just gets transpiled into
+"mySeat = 1". Which removes the generation of the IIFE, but also disallows the enum to contain any
+computations, such as:
+
+const enum TestEnum {
+  item1 = "item1",
+  item2 = something.computed // throws an error
+}
+*/
+
+/////////////////////////////////////////////////////////////////////
+// Interfaces
+interface interfaceUser {
+  readonly dbId: number,
+  email: string,
+  userId: number,
+  googleId?: string,
+  startTrial: () => string, // Or "startTrial(): string"
+  getCoupon(couponname: string, value: number): string // Use this syntax instead
+}
+
+const ambery: interfaceUser = {
+  dbId: 123,
+  email: "a@a.com",
+  userId: 123,
+  startTrial: () => {return "Trial started"},
+  getCoupon: (name: "Christmas discount", val: 0.2) => {return `Your ${name} is ${val*100}%`}
+}
+
+// Interfaces can also define the shape of functions
+interface functionType {
+  (arg1: string, arg2: number): string
+}
+
+const typedFunction: functionType = (arg1, arg2=10/*arg2 = "string"*/) => { // (arg1 and arg2)s' types are interred as string and number from the interface
+  return "string" // return type also must be a string as per the interface
+}
+
+// Interfaces can be "reopened" a.k.a. you can add more properties to an interface later
+interface interfaceUser {
+  // newProp: string // now, the variable ambery throws and error requiring a "newProp" argument
+}
+
+// Inheritance is also in interfaces
+interface regUser {
+  token: string
+}
+
+interface admin extends regUser {
+  role: "admin" | "superadmin"
+}
+
+const myAdmin: admin = {token: "abc", role: "admin"}
+
+/////////////////////////////////////////////////////////////////////
 // https://www.youtube.com/watch?v=30LWjhZzg50&ab_channel=freeCodeCamp.org
 // CURRENT TIMESTAMP: 2:06:34
 
