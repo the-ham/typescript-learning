@@ -17,7 +17,7 @@ var someFunc = function () {
 };
 variable = someFunc(); // Here if you hover "variable" it shows that it is of type "any", BAD
 /////////////////////////////////////////////////////////////////////
-// How to write a function accepting typed paramenters
+// How to write a function accepting typed parameters
 // regular functions:
 function userSignUp(name, email, isPremium) {
     return name.toUpperCase;
@@ -73,3 +73,46 @@ var userDetails = {
     _id: "123",
     name: "Bob"
 };
+/////////////////////////////////////////////////////////////////////
+// Typing arrays and higher dimensional arrays
+var arrayOfStrings = []; // e.g. ["bob", "jane", "sam"]
+var arrayOfArrayOfStrings = []; // e.g. [["bob"],["jane"],["sam"]]
+var allUsers = []; // An array of newUser objects
+allUsers.push({ name: "spiderman", isActive: true });
+/////////////////////////////////////////////////////////////////////
+// Union types (basically allowing more than 1 type)
+var score = 33; // score can either be a number or a string
+var john = { username: "John", password: "12345" };
+john = { username: "John", password: "12345", adminlevel: 1 }; // john can receive an adminlevel even though initialized as a NormalUser
+// Arrays that can receive multiple typed elements
+var data = [];
+data.push("abc", 123);
+// Literal typing
+var seatType;
+// seatType = "crew" // throws error as expected
+seatType = "aisle";
+var tupp = [1, "a"];
+// tupp.push("sad"); // Tuple types do not prevent array methods like .pop, .push etc.
+/////////////////////////////////////////////////////////////////////
+// Enums
+// Enums are for creating a closed set of choices for variables, so that not passing one of the allowed values will throw an error
+var SeatChoice;
+(function (SeatChoice) {
+    SeatChoice[SeatChoice["AISLE"] = 0] = "AISLE";
+    SeatChoice[SeatChoice["MIDDLE"] = 1] = "MIDDLE";
+    SeatChoice[SeatChoice["WINDOW"] = 2] = "WINDOW";
+})(SeatChoice || (SeatChoice = {}));
+var mySeat = SeatChoice.AISLE; // instead of mySeat = 1 or mySeat = 57 etc. which is less safe
+var myRating = 2 /* DessertRating.GOOD */; // works as well
+var ambery = {
+    dbId: 123,
+    email: "a@a.com",
+    userId: 123,
+    startTrial: function () { return "Trial started"; },
+    getCoupon: function (name, val) { return "Your ".concat(name, " is ").concat(val * 100, "%"); }
+};
+var typedFunction = function (arg1, arg2 /*arg2 = "string"*/) {
+    if (arg2 === void 0) { arg2 = 10; }
+    return "string"; // return type also must be a string as per the interface
+};
+var myAdmin = { token: "abc", role: "admin" };
